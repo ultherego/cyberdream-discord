@@ -39,12 +39,17 @@ block of `cyberdream.theme.css`, below the `@import`:
 | `--cd-notification` | red | unread and mention badges |
 | `--cd-online` / `--cd-idle` / `--cd-dnd` / `--cd-streaming` / `--cd-offline` | green / yellow / red / purple / grey | status indicators |
 
+The terminal look has its own switches: `--cd-font`, `--cd-radius`,
+`--cd-scanlines` (`0` turns the scanline overlay off) and `--cd-grid`
+(`transparent` removes the chat grid).
+
 The palette itself (`--cd-bg`, `--cd-cyan`, …) is listed at the top of
 [`cyberdream.css`](cyberdream.css).
 
 ## Development
 
-Work on `cyberdream.css` directly: copy it into the themes folder as
-`cyberdream-dev.theme.css` with a `@name` header on top, and BetterDiscord
-reloads it on every save. The hosted copy is served by GitHub Pages from the
-`main` branch.
+Run `./dev.sh` after editing `cyberdream.css`. It installs the working copy as
+a separate **Cyberdream (dev)** theme, which BetterDiscord reloads at once;
+enable it instead of the regular one while you work. The hosted copy is served
+by GitHub Pages from the `main` branch and can lag up to ten minutes behind a
+push because of caching.
