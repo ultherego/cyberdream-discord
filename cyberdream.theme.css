@@ -1,0 +1,21 @@
+/**
+ * @name Cyberdream
+ * @author ultherego
+ * @description A high-contrast, futuristic dark theme based on the cyberdream palette.
+ * @version 1.0.0
+ * @source https://github.com/ultherego/cyberdream-discord
+ * @website https://github.com/ultherego/cyberdream-discord
+ */
+
+@import url('https://ultherego.github.io/cyberdream-discord/cyberdream.css');
+
+/*
+ * Optional overrides. Uncomment and change anything you like;
+ * the full list of --cd-* variables is at the top of cyberdream.css.
+ */
+:root {
+    /* --cd-accent: var(--cd-magenta); */
+    /* --cd-link: var(--cd-cyan); */
+    /* --cd-notification: var(--cd-pink); */
+    /* --cd-bg: #16181a; */
+}

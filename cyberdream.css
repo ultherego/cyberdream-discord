@@ -1,0 +1,476 @@
+/*
+ * Cyberdream for Discord
+ * Palette: https://github.com/scottmckendry/cyberdream.nvim
+ *
+ * This file is the hosted source. Do not install it directly:
+ * install cyberdream.theme.css, which imports this file.
+ *
+ * Everything below is driven by the --cd-* variables, so the whole theme
+ * can be re-coloured by overriding them in :root after the @import.
+ */
+
+:root {
+    /* ---- cyberdream palette ---- */
+    --cd-bg: #16181a;
+    --cd-bg-alt: #1e2124;
+    --cd-bg-highlight: #3c4048;
+    --cd-fg: #ffffff;
+    --cd-grey: #7b8496;
+    --cd-blue: #5ea1ff;
+    --cd-green: #5eff6c;
+    --cd-cyan: #5ef1ff;
+    --cd-red: #ff6e5e;
+    --cd-yellow: #f1ff5e;
+    --cd-magenta: #ff5ef1;
+    --cd-pink: #ff5ea0;
+    --cd-orange: #ffbd5e;
+    --cd-purple: #bd5eff;
+
+    /* ---- roles (override these to restyle without touching the palette) ---- */
+    --cd-accent: var(--cd-cyan); /* buttons, switches, selected states */
+    --cd-on-accent: var(--cd-bg); /* text on top of bright palette colours */
+    --cd-link: var(--cd-blue);
+    --cd-mention: var(--cd-cyan);
+    --cd-notification: var(--cd-red); /* unread / mention badges */
+
+    --cd-online: var(--cd-green);
+    --cd-idle: var(--cd-yellow);
+    --cd-dnd: var(--cd-red);
+    --cd-streaming: var(--cd-purple);
+    --cd-offline: var(--cd-grey);
+
+    /* ---- derived shades ---- */
+    --cd-bg-dim: color-mix(in srgb, var(--cd-bg) 78%, black); /* app frame, server list */
+    --cd-surface-1: var(--cd-bg-alt); /* cards, inputs */
+    --cd-surface-2: color-mix(in srgb, var(--cd-bg-alt) 72%, var(--cd-bg-highlight)); /* popouts, menus */
+    --cd-surface-3: color-mix(in srgb, var(--cd-bg-alt) 45%, var(--cd-bg-highlight)); /* things on top of popouts */
+
+    --cd-text: color-mix(in srgb, var(--cd-fg) 90%, var(--cd-bg)); /* body text */
+    --cd-text-subtle: color-mix(in srgb, var(--cd-grey) 65%, var(--cd-fg)); /* channels, icons */
+    --cd-text-muted: var(--cd-grey); /* timestamps, placeholders */
+    --cd-text-faint: color-mix(in srgb, var(--cd-grey) 60%, var(--cd-bg)); /* muted channels */
+
+    --cd-hover: color-mix(in srgb, var(--cd-bg-highlight) 35%, transparent);
+    --cd-active: color-mix(in srgb, var(--cd-bg-highlight) 60%, transparent);
+    --cd-border: color-mix(in srgb, var(--cd-bg-highlight) 55%, transparent);
+    --cd-border-strong: var(--cd-bg-highlight);
+
+    --cd-accent-hover: color-mix(in srgb, var(--cd-accent) 85%, black);
+    --cd-accent-active: color-mix(in srgb, var(--cd-accent) 70%, black);
+    --cd-red-hover: color-mix(in srgb, var(--cd-red) 85%, black);
+    --cd-red-active: color-mix(in srgb, var(--cd-red) 70%, black);
+    --cd-green-hover: color-mix(in srgb, var(--cd-green) 85%, black);
+    --cd-green-active: color-mix(in srgb, var(--cd-green) 70%, black);
+
+    /* darkened blue for places where Discord hard-codes white text on "brand" */
+    --cd-brand: color-mix(in srgb, var(--cd-blue) 60%, black);
+}
+
+/*
+ * Discord defines its colour tokens on these theme classes. The :not() keeps
+ * Nitro profile colours intact and lifts specificity above Discord's own rules.
+ */
+.theme-dark:not(.custom-user-profile-theme),
+.theme-darker:not(.custom-user-profile-theme),
+.theme-midnight:not(.custom-user-profile-theme),
+.theme-light:not(.custom-user-profile-theme) {
+    color-scheme: dark;
+
+    /* ---- backgrounds ---- */
+    --app-frame-background: var(--cd-bg-dim);
+    --app-frame-border: var(--cd-border);
+    --background-base-lowest: var(--cd-bg-dim);
+    --background-base-lower: var(--cd-bg);
+    --background-base-low: var(--cd-bg);
+    --background-surface-high: var(--cd-surface-1);
+    --background-surface-higher: var(--cd-surface-2);
+    --background-surface-highest: var(--cd-surface-3);
+    --background-secondary-alt: var(--cd-bg-alt);
+    --bg-surface-raised: var(--cd-surface-2);
+    --background-accent: var(--cd-bg-highlight);
+    --background-brand: var(--cd-brand);
+    --background-mod-subtle: color-mix(in srgb, var(--cd-bg-highlight) 30%, transparent);
+    --background-mod-muted: color-mix(in srgb, var(--cd-bg-highlight) 40%, transparent);
+    --background-mod-normal: color-mix(in srgb, var(--cd-bg-highlight) 60%, transparent);
+    --background-mod-strong: var(--cd-bg-highlight);
+    --home-background: var(--cd-bg);
+    --panel-bg: var(--cd-bg-alt);
+    --chat-background: var(--cd-bg);
+    --chat-background-default: var(--cd-bg);
+    --chat-border: var(--cd-border);
+    --chat-text-muted: var(--cd-text-muted);
+    --channeltextarea-background: var(--cd-bg-alt);
+    --channel-text-area-placeholder: var(--cd-text-muted);
+    --modal-background: var(--cd-bg);
+    --modal-footer-background: var(--cd-bg-dim);
+    --card-background-default: var(--cd-surface-1);
+    --card-border-default: var(--cd-border);
+    --card-secondary-bg: var(--cd-surface-2);
+    --embed-background: var(--cd-bg-alt);
+    --embed-background-alternate: var(--cd-surface-2);
+    --app-message-embed-secondary-text: var(--cd-text-subtle);
+
+    /* ---- text ---- */
+    --text-default: var(--cd-text);
+    --text-strong: var(--cd-fg);
+    --text-subtle: var(--cd-text-subtle);
+    --text-muted: var(--cd-text-muted);
+    --text-link: var(--cd-link);
+    --text-brand: var(--cd-accent);
+    --text-invert: var(--cd-bg);
+    --text-overlay-light: var(--cd-fg);
+    --text-overlay-dark: var(--cd-bg);
+    --text-feedback-critical: var(--cd-red);
+    --text-feedback-warning: var(--cd-yellow);
+    --text-feedback-positive: var(--cd-green);
+    --text-feedback-info: var(--cd-blue);
+    --text-status-online: var(--cd-online);
+    --text-status-idle: var(--cd-idle);
+    --text-status-dnd: var(--cd-dnd);
+    --text-status-offline: var(--cd-offline);
+    --text-voice-connected: var(--cd-green);
+    --text-voice-speaking: var(--cd-green);
+    --textbox-markdown-syntax: var(--cd-text-muted);
+    --logo-primary: var(--cd-fg);
+
+    /* ---- icons ---- */
+    --icon-default: var(--cd-text-subtle);
+    --icon-strong: var(--cd-fg);
+    --icon-subtle: var(--cd-text-subtle);
+    --icon-muted: var(--cd-text-muted);
+    --icon-link: var(--cd-link);
+    --icon-brand: var(--cd-accent);
+    --icon-invert: var(--cd-bg);
+    --icon-overlay-light: var(--cd-fg);
+    --icon-overlay-dark: var(--cd-bg);
+    --icon-feedback-critical: var(--cd-red);
+    --icon-feedback-warning: var(--cd-yellow);
+    --icon-feedback-positive: var(--cd-green);
+    --icon-feedback-info: var(--cd-blue);
+    --icon-feedback-notification: var(--cd-notification);
+    --icon-status-online: var(--cd-online);
+    --icon-status-idle: var(--cd-idle);
+    --icon-status-dnd: var(--cd-dnd);
+    --icon-status-offline: var(--cd-offline);
+    --icon-voice-connected: var(--cd-green);
+    --icon-voice-speaking: var(--cd-green);
+    --icon-voice-muted: var(--cd-red);
+    --channel-icon: var(--cd-text-subtle);
+    --channels-default: var(--cd-text-subtle);
+
+    /* ---- interactive rows (channels, DMs, menu items) ---- */
+    --interactive-text-default: var(--cd-text-subtle);
+    --interactive-text-hover: var(--cd-text);
+    --interactive-text-active: var(--cd-fg);
+    --interactive-icon-default: var(--cd-text-subtle);
+    --interactive-icon-hover: var(--cd-text);
+    --interactive-icon-active: var(--cd-fg);
+    --interactive-muted: var(--cd-text-faint);
+    --interactive-background-hover: var(--cd-hover);
+    --interactive-background-active: var(--cd-active);
+    --interactive-background-selected: var(--cd-active);
+
+    /* ---- borders ---- */
+    --border-subtle: var(--cd-border);
+    --border-muted: color-mix(in srgb, var(--cd-bg-highlight) 35%, transparent);
+    --border-normal: var(--cd-border);
+    --border-strong: var(--cd-border-strong);
+    --border-focus: var(--cd-accent);
+    --border-feedback-critical: var(--cd-red);
+    --border-feedback-warning: var(--cd-yellow);
+    --border-feedback-positive: var(--cd-green);
+    --border-feedback-info: var(--cd-blue);
+    --spine-default: var(--cd-bg-highlight);
+    --thread-channel-spine: var(--cd-bg-highlight);
+
+    /* ---- feedback, notices, status ---- */
+    --background-feedback-critical: color-mix(in srgb, var(--cd-red) 15%, transparent);
+    --background-feedback-warning: color-mix(in srgb, var(--cd-yellow) 15%, transparent);
+    --background-feedback-positive: color-mix(in srgb, var(--cd-green) 15%, transparent);
+    --background-feedback-info: color-mix(in srgb, var(--cd-blue) 15%, transparent);
+    --background-feedback-notification: var(--cd-notification);
+    --notice-background-critical: var(--cd-red);
+    --notice-background-warning: var(--cd-yellow);
+    --notice-background-positive: var(--cd-green);
+    --notice-background-info: var(--cd-blue);
+    --notice-text-critical: var(--cd-on-accent);
+    --notice-text-warning: var(--cd-on-accent);
+    --notice-text-positive: var(--cd-on-accent);
+    --notice-text-info: var(--cd-on-accent);
+    --status-danger: var(--cd-red);
+    --status-warning: var(--cd-yellow);
+    --status-positive: var(--cd-green);
+    --status-online: var(--cd-online);
+    --status-speaking: var(--cd-green);
+    --status-positive-background: var(--cd-green);
+    --status-positive-text: var(--cd-on-accent);
+    --status-warning-background: var(--cd-yellow);
+    --status-warning-text: var(--cd-on-accent);
+
+    /* ---- badges ---- */
+    --badge-notification-background: var(--cd-notification);
+    --badge-notification-text: var(--cd-on-accent);
+    --badge-primary-background: var(--cd-accent);
+    --badge-primary-text: var(--cd-on-accent);
+    --badge-critical-background: var(--cd-red);
+    --badge-critical-text: var(--cd-on-accent);
+    --badge-success-background: var(--cd-green);
+    --badge-success-text: var(--cd-on-accent);
+    --badge-warning-background: var(--cd-yellow);
+    --badge-warning-text: var(--cd-on-accent);
+    --badge-secondary-background: var(--cd-bg-highlight);
+    --badge-secondary-text: var(--cd-fg);
+
+    /* ---- buttons ---- */
+    --control-primary-background-default: var(--cd-accent);
+    --control-primary-background-hover: var(--cd-accent-hover);
+    --control-primary-background-active: var(--cd-accent-active);
+    --control-primary-border-default: transparent;
+    --control-primary-border-hover: transparent;
+    --control-primary-border-active: transparent;
+    --control-primary-text-default: var(--cd-on-accent);
+    --control-primary-text-hover: var(--cd-on-accent);
+    --control-primary-text-active: var(--cd-on-accent);
+    --control-primary-icon-default: var(--cd-on-accent);
+    --control-primary-icon-hover: var(--cd-on-accent);
+    --control-primary-icon-active: var(--cd-on-accent);
+
+    --control-secondary-background-default: var(--cd-surface-2);
+    --control-secondary-background-hover: var(--cd-surface-3);
+    --control-secondary-background-active: var(--cd-bg-highlight);
+    --control-secondary-border-default: var(--cd-border);
+    --control-secondary-border-hover: var(--cd-border);
+    --control-secondary-border-active: var(--cd-border-strong);
+    --control-secondary-text-default: var(--cd-text);
+    --control-secondary-text-hover: var(--cd-fg);
+    --control-secondary-text-active: var(--cd-fg);
+    --control-secondary-icon-default: var(--cd-text);
+    --control-secondary-icon-hover: var(--cd-fg);
+    --control-secondary-icon-active: var(--cd-fg);
+
+    --control-critical-primary-background-default: var(--cd-red);
+    --control-critical-primary-background-hover: var(--cd-red-hover);
+    --control-critical-primary-background-active: var(--cd-red-active);
+    --control-critical-primary-border-default: transparent;
+    --control-critical-primary-border-hover: transparent;
+    --control-critical-primary-border-active: transparent;
+    --control-critical-primary-text-default: var(--cd-on-accent);
+    --control-critical-primary-text-hover: var(--cd-on-accent);
+    --control-critical-primary-text-active: var(--cd-on-accent);
+    --control-critical-primary-icon-default: var(--cd-on-accent);
+    --control-critical-primary-icon-hover: var(--cd-on-accent);
+    --control-critical-primary-icon-active: var(--cd-on-accent);
+
+    --control-critical-secondary-background-default: var(--cd-surface-2);
+    --control-critical-secondary-background-hover: var(--cd-surface-3);
+    --control-critical-secondary-background-active: var(--cd-bg-highlight);
+    --control-critical-secondary-border-default: var(--cd-border);
+    --control-critical-secondary-border-hover: var(--cd-border);
+    --control-critical-secondary-border-active: var(--cd-border-strong);
+    --control-critical-secondary-text-default: var(--cd-red);
+    --control-critical-secondary-text-hover: var(--cd-red);
+    --control-critical-secondary-text-active: var(--cd-red);
+    --control-critical-secondary-icon-default: var(--cd-red);
+    --control-critical-secondary-icon-hover: var(--cd-red);
+    --control-critical-secondary-icon-active: var(--cd-red);
+
+    --control-connected-background-default: var(--cd-green);
+    --control-connected-background-hover: var(--cd-green-hover);
+    --control-connected-background-active: var(--cd-green-active);
+    --control-connected-border-default: transparent;
+    --control-connected-border-hover: transparent;
+    --control-connected-border-active: transparent;
+    --control-connected-text-default: var(--cd-on-accent);
+    --control-connected-text-hover: var(--cd-on-accent);
+    --control-connected-text-active: var(--cd-on-accent);
+    --control-connected-icon-default: var(--cd-on-accent);
+    --control-connected-icon-hover: var(--cd-on-accent);
+    --control-connected-icon-active: var(--cd-on-accent);
+
+    --control-icon-only-background-hover: var(--cd-hover);
+    --control-icon-only-background-active: var(--cd-active);
+    --control-icon-only-icon-default: var(--cd-text-subtle);
+    --control-icon-only-icon-hover: var(--cd-text);
+    --control-icon-only-icon-active: var(--cd-fg);
+
+    --control-brand-foreground: var(--cd-accent);
+    --control-brand-foreground-new: var(--cd-accent);
+    --button-outline-primary-text: var(--cd-fg);
+
+    /* ---- inputs ---- */
+    --input-background-default: var(--cd-bg-alt);
+    --input-background-error-default: color-mix(in srgb, var(--cd-red) 10%, var(--cd-bg-alt));
+    --input-border-default: var(--cd-border);
+    --input-border-hover: var(--cd-border-strong);
+    --input-border-active: var(--cd-accent);
+    --input-border-readonly: var(--cd-border);
+    --input-border-error-default: var(--cd-red);
+    --input-text-default: var(--cd-text);
+    --input-text-error-default: var(--cd-text);
+    --input-placeholder-text-default: var(--cd-text-muted);
+    --input-icon-default: var(--cd-text-subtle);
+
+    /* ---- checkboxes, radios, switches, sliders ---- */
+    --checkbox-background-default: var(--cd-bg-alt);
+    --checkbox-background-hover: var(--cd-surface-2);
+    --checkbox-background-active: var(--cd-surface-3);
+    --checkbox-background-selected-default: var(--cd-accent);
+    --checkbox-background-selected-hover: var(--cd-accent-hover);
+    --checkbox-border-default: var(--cd-border-strong);
+    --checkbox-border-hover: var(--cd-border-strong);
+    --checkbox-border-active: var(--cd-border-strong);
+    --checkbox-border-selected-default: transparent;
+    --checkbox-border-selected-hover: transparent;
+    --checkbox-icon-active: var(--cd-on-accent);
+
+    --radio-background-default: var(--cd-bg-alt);
+    --radio-background-hover: var(--cd-surface-2);
+    --radio-background-active: var(--cd-surface-3);
+    --radio-background-selected-default: var(--cd-accent);
+    --radio-background-selected-hover: var(--cd-accent-hover);
+    --radio-border-default: var(--cd-border-strong);
+    --radio-border-hover: var(--cd-border-strong);
+    --radio-border-active: var(--cd-border-strong);
+    --radio-border-selected-default: transparent;
+    --radio-border-selected-hover: transparent;
+    --radio-thumb-background-active: var(--cd-on-accent);
+
+    --switch-background-default: var(--cd-bg-highlight);
+    --switch-background-hover: var(--cd-bg-highlight);
+    --switch-background-selected-default: var(--cd-accent);
+    --switch-background-selected-hover: var(--cd-accent-hover);
+    --switch-border-default: transparent;
+    --switch-border-hover: transparent;
+    --switch-border-selected-default: transparent;
+    --switch-border-selected-hover: transparent;
+    --switch-thumb-background-default: var(--cd-fg);
+    --switch-thumb-background-selected-default: var(--cd-on-accent);
+
+    --slider-indicator-background: var(--cd-accent);
+    --slider-track-background: var(--cd-bg-highlight);
+    --progressbar-indicator-background: var(--cd-accent);
+    --progressbar-track-background: var(--cd-bg-highlight);
+    --tabs-indicator-default: var(--cd-accent);
+
+    /* ---- messages ---- */
+    --message-background-hover: color-mix(in srgb, var(--cd-bg-highlight) 18%, transparent);
+    --message-mentioned-background-default: color-mix(in srgb, var(--cd-mention) 9%, transparent);
+    --message-mentioned-background-hover: color-mix(in srgb, var(--cd-mention) 13%, transparent);
+    --message-highlight-background-default: color-mix(in srgb, var(--cd-blue) 9%, transparent);
+    --message-highlight-background-hover: color-mix(in srgb, var(--cd-blue) 13%, transparent);
+    --mention-background: color-mix(in srgb, var(--cd-mention) 18%, transparent);
+    --mention-foreground: var(--cd-mention);
+    --keyword-highlight-background: color-mix(in srgb, var(--cd-yellow) 25%, transparent);
+
+    --reaction-background-default: var(--cd-bg-alt);
+    --reaction-background-hover: var(--cd-surface-2);
+    --reaction-background-active: var(--cd-surface-3);
+    --reaction-background-reacted-default: color-mix(in srgb, var(--cd-accent) 15%, transparent);
+    --reaction-background-reacted-hover: color-mix(in srgb, var(--cd-accent) 22%, transparent);
+    --reaction-border-default: transparent;
+    --reaction-border-hover: var(--cd-border-strong);
+    --reaction-border-active: var(--cd-border-strong);
+    --reaction-border-reacted-default: var(--cd-accent);
+    --reaction-text-default: var(--cd-text-subtle);
+    --reaction-text-hover: var(--cd-text);
+    --reaction-text-active: var(--cd-text);
+    --reaction-text-reacted-default: var(--cd-accent);
+
+    --spoiler-hidden-background: var(--cd-bg-highlight);
+    --spoiler-hidden-background-hover: color-mix(in srgb, var(--cd-bg-highlight) 85%, var(--cd-fg));
+    --spoiler-revealed-background: var(--cd-bg-alt);
+
+    --polls-victor-fill: color-mix(in srgb, var(--cd-green) 15%, transparent);
+    --polls-voted-fill: color-mix(in srgb, var(--cd-accent) 15%, transparent);
+
+    /* ---- code blocks (cyberdream syntax colours) ---- */
+    --background-code: var(--cd-bg-dim);
+    --background-code-addition: color-mix(in srgb, var(--cd-green) 15%, transparent);
+    --background-code-deletion: color-mix(in srgb, var(--cd-red) 15%, transparent);
+    --text-code: var(--cd-fg);
+    --text-code-comment: var(--cd-grey);
+    --text-code-keyword: var(--cd-orange);
+    --text-code-operator: var(--cd-purple);
+    --text-code-string: var(--cd-green);
+    --text-code-escape: var(--cd-pink);
+    --text-code-regexp: var(--cd-pink);
+    --text-code-number: var(--cd-pink);
+    --text-code-builtin: var(--cd-cyan);
+    --text-code-type: var(--cd-purple);
+    --text-code-namespace: var(--cd-purple);
+    --text-code-title: var(--cd-blue);
+    --text-code-property: var(--cd-blue);
+    --text-code-attribute: var(--cd-cyan);
+    --text-code-variable: var(--cd-fg);
+    --text-code-tag: var(--cd-magenta);
+    --text-code-decorator: var(--cd-magenta);
+    --text-code-section: var(--cd-blue);
+    --text-code-bullet: var(--cd-cyan);
+    --text-code-link: var(--cd-link);
+    --text-code-error: var(--cd-red);
+    --text-code-addition: var(--cd-green);
+    --text-code-deletion: var(--cd-red);
+
+    --ansi-black: var(--cd-bg-highlight);
+    --ansi-red: var(--cd-red);
+    --ansi-green: var(--cd-green);
+    --ansi-yellow: var(--cd-yellow);
+    --ansi-blue: var(--cd-blue);
+    --ansi-magenta: var(--cd-magenta);
+    --ansi-cyan: var(--cd-cyan);
+    --ansi-white: var(--cd-fg);
+    --ansi-bright-black: var(--cd-grey);
+    --ansi-bright-red: var(--cd-red);
+    --ansi-bright-green: var(--cd-green);
+    --ansi-bright-yellow: var(--cd-yellow);
+    --ansi-bright-blue: var(--cd-blue);
+    --ansi-bright-magenta: var(--cd-magenta);
+    --ansi-bright-cyan: var(--cd-cyan);
+    --ansi-bright-white: var(--cd-fg);
+
+    /* ---- scrollbars ---- */
+    --scrollbar-auto-thumb: var(--cd-bg-highlight);
+    --scrollbar-auto-track: transparent;
+    --scrollbar-thin-thumb: var(--cd-bg-highlight);
+    --scrollbar-thin-track: transparent;
+    --scrollbar-auto-scrollbar-color-thumb: var(--cd-bg-highlight);
+    --scrollbar-auto-scrollbar-color-track: transparent;
+
+    /* ---- user profiles ---- */
+    --user-profile-overlay-background: var(--cd-bg-alt);
+    --user-profile-overlay-background-hover: var(--cd-hover);
+    --user-profile-background-hover: var(--cd-hover);
+    --user-profile-border: var(--cd-border);
+    --user-profile-toolbar-background: var(--cd-bg-dim);
+    --user-profile-toolbar-border: var(--cd-border);
+    --user-profile-note-background-focus: var(--cd-bg-dim);
+
+    /* ---- raw brand tokens still referenced directly in a few places ---- */
+    --brand-500: var(--cd-brand);
+    --brand-360: var(--cd-blue);
+    --brand-260: var(--cd-blue);
+}
+
+/* ---- details Discord does not expose as variables ---- */
+
+::selection {
+    background-color: color-mix(in srgb, var(--cd-accent) 35%, transparent);
+}
+
+/* status dots are SVG shapes with hard-coded fills */
+rect[fill='#45a366'],
+path[fill='#45a366'] {
+    fill: var(--cd-online);
+}
+rect[fill='#ffc04e'] {
+    fill: var(--cd-idle);
+}
+rect[fill='#da3e44'] {
+    fill: var(--cd-dnd);
+}
+rect[fill='#9147ff'] {
+    fill: var(--cd-streaming);
+}
+rect[fill='#84858d'] {
+    fill: var(--cd-offline);
+}
