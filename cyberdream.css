@@ -27,7 +27,7 @@
     --cd-purple: #bd5eff;
 
     /* ---- roles (override these to restyle without touching the palette) ---- */
-    --cd-accent: var(--cd-cyan); /* buttons, switches, selected states */
+    --cd-accent: var(--cd-green); /* buttons, switches, selected states */
     --cd-on-accent: var(--cd-bg); /* text on top of bright palette colours */
     --cd-link: var(--cd-blue);
     --cd-mention: var(--cd-cyan);
@@ -168,7 +168,7 @@
     --interactive-muted: var(--cd-text-faint);
     --interactive-background-hover: var(--cd-hover);
     --interactive-background-active: var(--cd-active);
-    --interactive-background-selected: var(--cd-active);
+    --interactive-background-selected: color-mix(in srgb, var(--cd-accent) 16%, transparent);
 
     /* ---- borders ---- */
     --border-subtle: var(--cd-border);
@@ -455,6 +455,29 @@
 
 ::selection {
     background-color: color-mix(in srgb, var(--cd-accent) 35%, transparent);
+}
+
+/* selected channel / DM row: accent text and icon on the accent-tinted row */
+[class*='modeSelected_'],
+[class*='interactiveSelected_'] {
+    --text-strong: var(--cd-accent);
+    --text-default: var(--cd-accent);
+    --interactive-text-active: var(--cd-accent);
+    --icon-strong: var(--cd-accent);
+    --channel-icon: var(--cd-accent);
+}
+
+/* server list: Discord logo and round buttons in accent, filled when selected or hovered */
+[class*='guilds_'] [class*='childWrapper_'],
+[class*='guilds_'] [class*='circleIconButton_'] {
+    color: var(--cd-accent);
+}
+[class*='guilds_'] [class*='selected_'] [class*='childWrapper_'][class*='childWrapper_'],
+[class*='guilds_'] [class*='childWrapper_'][class*='childWrapper_']:hover,
+[class*='guilds_'] [class*='circleIconButton_'][class*='selected_'],
+[class*='guilds_'] [class*='circleIconButton_'][class*='circleIconButton_']:hover {
+    background-color: var(--cd-accent);
+    color: var(--cd-on-accent);
 }
 
 /* status dots are SVG shapes with hard-coded fills */

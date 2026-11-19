@@ -33,7 +33,7 @@ block of `cyberdream.theme.css`, below the `@import`:
 
 | Variable | Default | Used for |
 | --- | --- | --- |
-| `--cd-accent` | cyan | buttons, switches, selected states |
+| `--cd-accent` | green | buttons, switches, selected channel, server list icons |
 | `--cd-link` | blue | links |
 | `--cd-mention` | cyan | mentions and mentioned messages |
 | `--cd-notification` | red | unread and mention badges |
