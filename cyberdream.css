@@ -12,11 +12,10 @@
 @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap');
 
 :root {
-    /* ---- terminal look (set --cd-scanlines to 0 and --cd-grid to transparent to calm it down) ---- */
-    --cd-font: 'JetBrains Mono', 'Fira Code', 'Cascadia Code', 'Source Code Pro', monospace;
+    /* ---- terminal look ---- */
+    --cd-font-mono: 'JetBrains Mono', 'Fira Code', 'Cascadia Code', 'Source Code Pro', monospace;
+    --cd-font-ui: inherit; /* set to var(--cd-font-mono) for a fully monospace interface */
     --cd-radius: 2px; /* corner radius of panels, inputs, buttons */
-    --cd-scanlines: 0.08; /* strength of the CRT scanline overlay, 0 = off */
-    --cd-grid: color-mix(in srgb, var(--cd-accent) 4%, transparent); /* chat background grid */
     --cd-glow: 0 0 10px color-mix(in srgb, var(--cd-accent) 40%, transparent);
     --cd-glow-text: 0 0 8px color-mix(in srgb, var(--cd-accent) 55%, transparent);
 
@@ -50,7 +49,7 @@
     --cd-offline: var(--cd-grey);
 
     /* ---- derived shades ---- */
-    --cd-bg-dim: color-mix(in srgb, var(--cd-bg) 78%, black); /* app frame, server list */
+    --cd-bg-dim: color-mix(in srgb, var(--cd-bg) 78%, black); /* app frame, server list, chat */
     --cd-surface-1: var(--cd-bg-alt); /* cards, inputs */
     --cd-surface-2: color-mix(in srgb, var(--cd-bg-alt) 72%, var(--cd-bg-highlight)); /* popouts, menus */
     --cd-surface-3: color-mix(in srgb, var(--cd-bg-alt) 45%, var(--cd-bg-highlight)); /* things on top of popouts */
@@ -87,10 +86,7 @@
     color-scheme: dark;
 
     /* ---- typography and corners ---- */
-    --font-primary: var(--cd-font);
-    --font-display: var(--cd-font);
-    --font-headline: var(--cd-font);
-    --font-code: var(--cd-font);
+    --font-code: var(--cd-font-mono);
     --radius-xs: var(--cd-radius);
     --radius-sm: var(--cd-radius);
     --radius-md: var(--cd-radius);
@@ -522,21 +518,9 @@ rect[fill='#84858d'] {
 
 /* ================= terminal layer ================= */
 
-/* CRT scanlines over the whole window (never intercepts clicks) */
-#app-mount::after {
-    content: '';
-    position: fixed;
-    inset: 0;
-    z-index: 9999;
-    pointer-events: none;
-    background: repeating-linear-gradient(to bottom, transparent 0 2px, rgb(0 0 0 / var(--cd-scanlines)) 2px 3px);
-}
-
-/* faint grid behind the chat */
-[class*='chatContent_'] {
-    background-image: linear-gradient(var(--cd-grid) 1px, transparent 1px),
-        linear-gradient(90deg, var(--cd-grid) 1px, transparent 1px);
-    background-size: 32px 32px;
+/* optional fully monospace interface, see --cd-font-ui */
+#app-mount {
+    font-family: var(--cd-font-ui);
 }
 
 /* selected channel / DM: prompt-style bar on the left and glowing name */
@@ -557,6 +541,7 @@ rect[fill='#84858d'] {
 [class*='membersGroup_'] {
     color: color-mix(in srgb, var(--cd-accent) 70%, var(--cd-grey));
     font-size: 11px;
+    font-family: var(--cd-font-mono);
     letter-spacing: 0.08em;
     text-transform: uppercase;
 }
@@ -578,6 +563,9 @@ rect[fill='#84858d'] {
 }
 
 /* log-style timestamps: [04:14] */
+[class*='timestamp_'] {
+    font-family: var(--cd-font-mono);
+}
 [class*='cozy_'] > [class*='header_'] [class*='timestamp_'] time::before {
     content: '[';
 }
@@ -587,6 +575,7 @@ rect[fill='#84858d'] {
 
 /* date separators */
 [class*='divider_'][class*='hasContent_'] {
+    font-family: var(--cd-font-mono);
     letter-spacing: 0.1em;
     text-transform: uppercase;
 }

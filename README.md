@@ -39,9 +39,9 @@ block of `cyberdream.theme.css`, below the `@import`:
 | `--cd-notification` | red | unread and mention badges |
 | `--cd-online` / `--cd-idle` / `--cd-dnd` / `--cd-streaming` / `--cd-offline` | green / yellow / red / purple / grey | status indicators |
 
-The terminal look has its own switches: `--cd-font`, `--cd-radius`,
-`--cd-scanlines` (`0` turns the scanline overlay off) and `--cd-grid`
-(`transparent` removes the chat grid).
+The terminal look has its own switches: `--cd-radius` for corners,
+`--cd-font-mono` for timestamps, headers and code, and `--cd-font-ui`
+(set it to `var(--cd-font-mono)` for a fully monospace interface).
 
 The palette itself (`--cd-bg`, `--cd-cyan`, …) is listed at the top of
 [`cyberdream.css`](cyberdream.css).
