@@ -524,6 +524,11 @@ rect[fill='#84858d'] {
     font-family: var(--cd-font-ui);
 }
 
+/* user panel (avatar, mic, settings): thicker frame */
+[class*='sidebar_'] [class*='panels_'][class*='panels_'] {
+    border-width: 4px;
+}
+
 /* right-click menus */
 [role='menu'][class*='menu_'] {
     --background-surface-high: var(--cd-menu);
