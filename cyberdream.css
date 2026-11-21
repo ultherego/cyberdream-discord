@@ -41,6 +41,7 @@
     --cd-link: var(--cd-blue);
     --cd-mention: var(--cd-cyan);
     --cd-notification: var(--cd-red); /* unread / mention badges */
+    --cd-menu: #111314; /* right-click menu background */
 
     --cd-online: var(--cd-green);
     --cd-idle: var(--cd-yellow);
@@ -521,6 +522,13 @@ rect[fill='#84858d'] {
 /* optional fully monospace interface, see --cd-font-ui */
 #app-mount {
     font-family: var(--cd-font-ui);
+}
+
+/* right-click menus */
+[role='menu'][class*='menu_'] {
+    --background-surface-high: var(--cd-menu);
+    --background-surface-higher: var(--cd-menu);
+    background-color: var(--cd-menu);
 }
 
 /* selected channel / DM: prompt-style bar on the left and glowing name */
