@@ -43,6 +43,12 @@
     --cd-notification: var(--cd-red); /* unread / mention badges */
     --cd-menu: #111314; /* right-click menu background */
 
+    /* ---- depth: black shadows (set any of these to none / transparent to flatten) ---- */
+    --cd-shadow-float: 0 17px 42px rgb(0 0 0 / 0.65), 0 4px 11px rgb(0 0 0 / 0.5); /* menus, popouts, dialogs, tooltips */
+    --cd-shadow-raised: 0 9px 22px rgb(0 0 0 / 0.55); /* images, embeds, message box, user panel */
+    --cd-shadow-guilds: rgb(0 0 0 / 0.9); /* shadow around server icons */
+    --cd-shadow-edge: rgb(0 0 0 / 0.7); /* shade that surrounding panels cast onto the chat and channel list */
+
     --cd-online: var(--cd-green);
     --cd-idle: var(--cd-yellow);
     --cd-dnd: var(--cd-red);
@@ -94,6 +100,22 @@
     --radius-lg: var(--cd-radius);
     --radius-xl: var(--cd-radius);
     --radius-xxl: var(--cd-radius);
+
+    /* ---- Discord's own shadow tokens, made black and deeper ---- */
+    --shadow-low: 0 2px 6px rgb(0 0 0 / 0.45);
+    --shadow-low-hover: 0 5px 12px rgb(0 0 0 / 0.5);
+    --shadow-low-active: 0 1px 4px rgb(0 0 0 / 0.45);
+    --shadow-medium: var(--cd-shadow-raised);
+    --shadow-high: var(--cd-shadow-float);
+    --shadow-button-overlay: var(--cd-shadow-float);
+    --shadow-ledge: 0 2px 5px rgb(0 0 0 / 0.45);
+    --shadow-low-filter: drop-shadow(0 2px 6px rgb(0 0 0 / 0.45));
+    --shadow-high-filter: drop-shadow(0 12px 24px rgb(0 0 0 / 0.6));
+    --legacy-elevation-low: 0 2px 6px rgb(0 0 0 / 0.45);
+    --legacy-elevation-high: var(--cd-shadow-raised);
+    --elevation-low: 0 2px 5px rgb(0 0 0 / 0.45);
+    --elevation-medium: var(--cd-shadow-raised);
+    --elevation-high: var(--cd-shadow-float);
 
     /* ---- backgrounds ---- */
     --app-frame-background: var(--cd-bg-dim);
@@ -534,6 +556,40 @@ rect[fill='#84858d'] {
     --background-surface-high: var(--cd-menu);
     --background-surface-higher: var(--cd-menu);
     background-color: var(--cd-menu);
+    box-shadow: var(--cd-shadow-float);
+}
+
+/* ---- depth ---- */
+
+/* the chat sits lower than the header, channel list and member list around it */
+[class*='chatContent_'] {
+    box-shadow: inset 0 18px 20px -16px var(--cd-shadow-edge), inset 18px 0 20px -16px var(--cd-shadow-edge),
+        inset -18px 0 20px -16px var(--cd-shadow-edge);
+}
+
+/* the server rail casts a shade onto the channel list */
+[class*='sidebarList_'] {
+    box-shadow: inset 18px 0 20px -16px var(--cd-shadow-edge);
+}
+
+/* user panel floats above the channel list */
+[class*='sidebar_'] [class*='panels_'][class*='panels_'] {
+    box-shadow: 0 -14px 28px rgb(0 0 0 / 0.65), var(--cd-shadow-raised), inset 0 0 22px rgb(0 0 0 / 0.55);
+}
+[class*='sidebar_'] [class*='panels_'] [class*='avatar_'] {
+    filter: drop-shadow(0 3px 5px rgb(0 0 0 / 0.7));
+}
+
+/* server list: every icon, folder and round button drops a shadow */
+[class*='guilds_'] [class*='listItem_'] {
+    filter: drop-shadow(0 1px 8px var(--cd-shadow-guilds)) drop-shadow(0 0 4px var(--cd-shadow-guilds));
+}
+
+/* pictures, embeds and the message box lift off the chat */
+[class*='imageWrapper_'],
+[class*='embedFull_'],
+[class*='channelTextArea_'][class*='channelTextArea_'] {
+    box-shadow: var(--cd-shadow-raised);
 }
 
 /* selected channel / DM: prompt-style bar on the left and glowing name */
@@ -569,7 +625,7 @@ rect[fill='#84858d'] {
 }
 [class*='channelTextArea_'][class*='channelTextArea_']:focus-within {
     border-color: var(--cd-accent);
-    box-shadow: var(--cd-glow);
+    box-shadow: var(--cd-glow), var(--cd-shadow-raised);
 }
 [class*='channelTextArea_'] [class*='scrollableContainer_'] {
     border-radius: var(--cd-radius);
